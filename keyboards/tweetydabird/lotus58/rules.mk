@@ -14,15 +14,16 @@ SPLIT_KEYBOARD = yes		# Split keyboard is neccesary!
 
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 
-CONSOLE_ENABLE = no         # Console for debug
+CONSOLE_ENABLE = yes         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 
-RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = WS2812
 
 NKRO_ENABLE = yes           # USB Nkey Rollover (needed for gaming)
 
 ENCODER_ENABLE = yes		# Support for OLED screens
-OLED_ENABLE = yes			# Support for Rotary Encoders
+OLED_ENABLE = no			# Support for Rotary Encoders
 
 TAP_DANCE_ENABLE = no		# Used in keymap
 AUTO_SHIFT_ENABLE = no		# Used in keymap
@@ -32,5 +33,5 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend # Do not en
 
 # Saving space
 SPACE_CADET_ENABLE = no
-GRAVE_ESC_ENABLE = no 
+GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no

@@ -41,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { F4 }
 #define ENCODERS_PAD_A_RIGHT { F4 }
 #define ENCODERS_PAD_B_RIGHT { F5 }
-#define ENCODER_RESOLUTION 1
+#define ENCODER_RESOLUTION 4
 
 // Define Communication
 #define SOFT_SERIAL_PIN D2
@@ -52,6 +52,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Basic RGB configuration
 #define RGB_DI_PIN D3
+//#define RGBLIGHT_LIMIT_VAL 120 // Safe for most USB port's current limits
+//#define RGBLIGHT_LAYERS_RETAIN_VAL
 
 // Underglow LEDs
 //#define RGBLED_SPLIT { 6, 6 }
@@ -62,20 +64,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define RGBLED_NUM 58
 
 // Full backlight + underglow
-#define RGBLED_SPLIT { 35, 35 }
-#define RGBLED_NUM 70
-#define RGBLIGHT_SPLIT
+//#define RGBLED_SPLIT { 35, 35 }
+//#define RGBLED_NUM 70
 
-#define RGBLIGHT_EFFECT_BREATHING
+#ifdef RGB_MATRIX_ENABLE
+    #define RGBLED_NUM 70
+    #define DRIVER_LED_TOTAL RGBLED_NUM
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
+    #define RGB_MATRIX_HUE_STEP 8
+    #define RGB_MATRIX_SAT_STEP 8
+    #define RGB_MATRIX_VAL_STEP 8
+    #define RGB_MATRIX_SPD_STEP 10
+    #define RGB_MATRIX_KEYPRESSES
+    #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+    #define RGB_MATRIX_SPLIT {35,35}
+    #define SPLIT_TRANSPORT_MIRROR
 
-#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_BREATHING
-#define RGBLIGHT_LAYERS_RETAIN_VAL
-#define RGBLIGHT_LIMIT_VAL 175
-#define RGBLIGHT_DEFAULT_VAL ( RGBLIGHT_LIMIT_VAL / 2 )
+
+    // RGB effects as listed in QMK docs: https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
+    #define ENABLE_RGB_MATRIX_MULTISPLASH
+    #define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+    #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+    #define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+
+    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+#endif
+
+
+
 
 #define SPLIT_USB_DETECT
 #define SPLIT_USB_TIMEOUT 2000
 #define SPLIT_USB_TIMEOUT_POLL 10
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_LED_STATE_ENABLE
+
 
 #define TAPPING_TERM 175
 #define TAPPING_TOGGLE 2
@@ -102,3 +127,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 #define LAYER_STATE_8BIT
+
+
