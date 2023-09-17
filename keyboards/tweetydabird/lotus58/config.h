@@ -93,6 +93,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
+#define GRAVE_ESC_CTRL_OVERRIDE
 
 
 #define SPLIT_USB_DETECT
@@ -112,20 +113,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed
 #define DEBOUNCE 5
 
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is useful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-#define GRAVE_ESC_CTRL_OVERRIDE
-
 // disable action features
 #define NO_ACTION_ONESHOT
 
 // Bootmagic Lite key configuration
 #define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
+#define BOOTMAGIC_LITE_COLUMN 1
+#define BOOTMAGIC_LITE_ROW_RIGHT 5
+#define BOOTMAGIC_LITE_COLUMN_RIGHT 5
 
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 #define LAYER_STATE_8BIT
 
-
+#define USB_SUSPEND_WAKEUP_DELAY 200

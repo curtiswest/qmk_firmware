@@ -33,5 +33,5 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend # Do not en
 
 # Saving space
 SPACE_CADET_ENABLE = no
-GRAVE_ESC_ENABLE = no
+GRAVE_ESC_ENABLE = yes
 MAGIC_ENABLE = no

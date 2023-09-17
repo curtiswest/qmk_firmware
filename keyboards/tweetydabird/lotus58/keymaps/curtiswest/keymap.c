@@ -22,14 +22,12 @@ enum layers {
     _QWERTY,
     _NUM,
     _FN,
-//    _SYS,
 };
 
 enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
     KC_NUMERIC,
     KC_FUNCTION,
-//	KC_SYSTEM,
 };
 
 /* Legend											     _____        _____
@@ -49,11 +47,11 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
-    KC_ESC, 	KC_1, 	KC_2,   KC_3,	KC_4,    KC_5,	KC_MPLY,     	KC_MPLY, 	KC_6, 	KC_7,	KC_8,    KC_9,   KC_0,    KC_MINS,
+    QK_GESC, 	KC_1, 	KC_2,   KC_3,	KC_4,    KC_5,	KC_MPLY,     	KC_MPLY, 	KC_6, 	KC_7,	KC_8,    KC_9,   KC_0,    KC_MINS,
     KC_TAB, 	KC_Q, 	KC_W,   KC_E,   KC_R,    KC_T,                             	KC_Y, 	KC_U,   KC_I,    KC_O,   KC_P,    KC_LBRC,
 	KC_CAPS, 	KC_A, 	KC_S,   KC_D,   KC_F,    KC_G,                             	KC_H, 	KC_J,   KC_K,    KC_L,   KC_SCLN, KC_QUOT,
-	LCTL_T(KC_LEFT), 	KC_Z, 	KC_X,   KC_C,   KC_V,    KC_B, 	RGB_MODE_FORWARD,     	RGB_TOG,  KC_N,	KC_M,   KC_COMM, KC_DOT, KC_SLSH, RCTL_T(KC_RGHT),
-							TG(_FN), KC_LGUI,  KC_LALT,    LSFT_T(KC_SPC),      KC_BSPC, RSFT_T(KC_ENT),KC_RALT, TG(_NUM)
+	LCTL_T(KC_LEFT), 	KC_Z, 	KC_X,   KC_C,   KC_V,    KC_B, 	RGB_MODE_FORWARD,     	RGB_TOG,  KC_N,	KC_M,   KC_COMM, KC_DOT, KC_SLSH, KC_BSLS,
+							MO(_FN), KC_LGUI,  KC_LALT,    LSFT_T(KC_SPC),      KC_BSPC, RSFT_T(KC_ENT),KC_ESC, KC_DOT
 	),
 
 [_NUM] = LAYOUT(
@@ -65,20 +63,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_FN] = LAYOUT(
-  _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, _______,        _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, _______,
-  _______, _______, _______, _______, _______, _______,                          _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,                          _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______, _______,
+  _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, _______,        _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_PIPE,
+  _______, _______, _______, _______, KC_LPRN, KC_RPRN,                          KC_LPRN, KC_RPRN, KC_PPLS, KC_ASTR, _______, _______,
+  _______, _______, _______, _______, KC_LBRC, KC_RBRC,                          KC_LBRC, KC_RBRC, KC_EQL,  KC_EQL , _______, _______,
+  _______, _______, _______, _______, KC_LCBR, KC_RCBR, _______,        _______, KC_LCBR, KC_RCBR, KC_PMNS, KC_SLSH, _______, _______,
 							 _______, _______, _______, _______,        _______, _______, _______, _______
 ),
 
-//[_SYS] = LAYOUT(
-//  XXXXXXX, XXXXXXX, XXXXXXX ,  XXXXXXX, XXXXXXX, XXXXXXX, _______,     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-//  QK_BOOT, XXXXXXX, KC_QWERTY, XXXXXXX, XXXXXXX, KC_ASTG,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
-//  XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, KC_CAPS,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-//  XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-//								_______, _______, _______, _______,     _______, _______, _______, _______
-//  )
 };
 
 #ifdef OLED_ENABLE
@@ -115,25 +106,9 @@ static void print_status_narrow(void) {
         case _NUM:
             oled_write_P(PSTR("-Num \n"), false);
             break;
-//        case _SYS:
-//            oled_write_P(PSTR("-Sys \n"), false);
-//            break;
         default:
             oled_write_P(PSTR("Undef"), false);
     }
-
-/* not working!
-
-    oled_write_P(PSTR("\n"), false);
-    led_t led_usb_state = host_keyboard_led_state();
-    oled_write_ln_P(PSTR("Caps- lock"), led_usb_state.caps_lock);
-
-	autoshift = get_autoshift_state();
-
-		oled_write_P(PSTR("\n"), false);
-		oled_write_P(PSTR("Auto-Shift"), autoshift);
-		oled_write_P(PSTR("\n"), false);
-	*/
 
 }
 
@@ -167,19 +142,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-//    switch (get_highest_layer(state)) {
-//        case _NUM:
-//            rgb_matrix_set_color_all(RGB_BLUE);
-//            break;
-//        case _FN:
-//            rgb_matrix_set_color_all(RGB_RED);
-//            break;
-//        default: // for any other layers, or the default layer
-//            rgb_matrix_set_color_all(RGB_WHITE);
-//            break;
-//    }
    return state;
-//   return update_tri_layer_state(state, _NUM, _FN, _SYS);
 }
 
 #ifdef ENCODER_ENABLE
@@ -206,13 +169,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 void rgb_matrix_indicators_user(void) {
     switch (get_highest_layer(layer_state)) {
-//        case _QWERTY:
-//            rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
-//            rgb_matrix_enable_noeeprom();
         case _FN:
-//            rgb_matrix_disable_noeeprom();
-            rgb_matrix_set_color_all(10,0,0);
-//            rgb_matrix_set_color(6, 204, 255, 204);
+            rgb_matrix_set_color_all(0,30,0);
             break;
         case _NUM:
             rgb_matrix_set_color_all(0,0,10);
@@ -245,19 +203,25 @@ void rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(51, RGB_BLUE); // M/ENTER
             rgb_matrix_set_color(54, RGB_BLUE); // ,/ENTER
 
-
             break;
         default:
-//            rgb_matrix_set_color_all(0,0,0);
             break;
     }
 
     if (host_keyboard_led_state().caps_lock) {
+        // LHS to red
         for (uint8_t i = 0; i <= 5; i++) {
             if (g_led_config.flags[i] & LED_FLAG_KEYLIGHT) {
                 rgb_matrix_set_color(i, RGB_RED);
             }
         }
+        // RHS to red
+        for (uint8_t i = 35; i <= 40; i++) {
+            if (g_led_config.flags[i] & LED_FLAG_KEYLIGHT) {
+                rgb_matrix_set_color(i, RGB_RED);
+            }
+        }
+        // And caps key
         rgb_matrix_set_color(17, RGB_RED);
     }
 
